@@ -15,6 +15,11 @@ public class Vertex {
         this.id = id;
     }
 
+    public Vertex(int id, Sensor sensor) {
+        this.sensor = sensor;
+        this.id = id;
+    }
+
     public String getSensor() {
         return sensor.toString();
     }
