@@ -72,8 +72,12 @@ public class sqlGraph {
         if (edgeNo > 0) {
             edgeInsert += ", ";
         }
+        String flag = null;
+        if (e.getFlag() != null) {
+            flag = "'" + e.getFlag() + "'";
+        }
         edgeInsert += " (" + e.getStart().getId() + ", '" + e.getStart().getSensor() + "', " +
-                 + e.getEnd().getId() + ", '" + e.getEnd().getSensor() + "', '" + e.getFlag() + "') " ;
+                 + e.getEnd().getId() + ", '" + e.getEnd().getSensor() + "', " + flag + " ) " ;
         edgeNo++;
 
         if (edgeNo > 450) {
