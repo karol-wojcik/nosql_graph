@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 
 public class GraphParser {
 
-    public void parse(File file, Listener<Vertex> vertexListener, Listener<Edge> edgeListener) throws IOException {
+    public void parse(File file, Listener<Vertex> vertexListener, Listener<Edge> edgeListener) {
         BufferedReader br = null;
 
         try {
@@ -73,6 +73,8 @@ public class GraphParser {
                     edgeListener.onItem(new Edge(sV, eV, kind));
                 }
             }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         } finally {
             try {
                 if (br != null)br.close();

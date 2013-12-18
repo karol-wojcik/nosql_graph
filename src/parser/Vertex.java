@@ -7,17 +7,16 @@ package parser;
  * Time: 21:51
  */
 public class Vertex {
-    String sensor;
-    Integer id;
+    Sensor sensor;
+    int id;
 
-
-    public Vertex(Integer id, String sensor) {
-        this.sensor = sensor;
+    public Vertex(int id, String sensor) {
+        this.sensor = Sensor.valueOf(sensor);
         this.id = id;
     }
 
     public String getSensor() {
-        return sensor;
+        return sensor.toString();
     }
 
     public Integer getId() {
@@ -27,4 +26,6 @@ public class Vertex {
     public String toString() {
         return "V: " + id + ", s: " + sensor;
     }
+
+    public static enum Sensor {a,s,c,k,d,p,h,l}
 }

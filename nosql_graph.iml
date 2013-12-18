@@ -8,6 +8,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="org.xerial:sqlite-jdbc:3.7.15-M1" level="project" />
+    <orderEntry type="library" name="caliper-1.0-beta-1-all" level="project" />
   </component>
 </module>
 

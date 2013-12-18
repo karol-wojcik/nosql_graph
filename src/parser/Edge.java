@@ -9,12 +9,14 @@ package parser;
 public class Edge {
     Vertex start;
     Vertex end;
-    String flag;
+    Flag flag = null;
 
     public Edge(Vertex start, Vertex end, String flag) {
         this.start = start;
         this.end = end;
-        this.flag = flag;
+        if(flag != null) {
+            this.flag = Flag.valueOf(flag);
+        }
     }
 
     public Edge(Vertex start, Vertex end) {
@@ -22,7 +24,7 @@ public class Edge {
     }
 
     public String toString() {
-        return "E: (" + start + ") -> (" + end + ")";
+        return "E: (" + start + ") -> (" + end + ") " + "f: " + flag;
     }
 
     public Vertex getStart() {
@@ -34,6 +36,13 @@ public class Edge {
     }
 
     public String getFlag() {
-        return flag;
+        if(flag != null) {
+            return flag.toString();
+        }
+        return null;
+    }
+
+    public static enum Flag {
+        interior, par21, par20, in, dir_night, dir_day, par9, par18, par19, par4, par14, par3, par15, par2, par16, par1, high, par17, par8, low, par10, par7, par11, par6, par12, par5, par13
     }
 }
