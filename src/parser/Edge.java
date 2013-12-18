@@ -21,6 +21,10 @@ public class Edge {
         this(start, end, null);
     }
 
+    public String toString() {
+        return "E: (" + start + ") -> (" + end + ")";
+    }
+
     public Vertex getStart() {
         return start;
     }

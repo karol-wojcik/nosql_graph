@@ -25,6 +25,6 @@ public class Vertex {
     }
 
     public String toString() {
-        return "id: " + id + ", sensor: " + sensor;
+        return "V: " + id + ", s: " + sensor;
     }
 }
