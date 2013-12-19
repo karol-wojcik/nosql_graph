@@ -7,7 +7,7 @@ package parser;
  * Time: 21:51
  */
 public class Vertex {
-    Sensor sensor;
+    public Sensor sensor;
     int id;
 
     public Vertex(int id, String sensor) {

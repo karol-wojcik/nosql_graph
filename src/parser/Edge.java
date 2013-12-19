@@ -7,8 +7,8 @@ package parser;
  * Time: 21:51
  */
 public class Edge {
-    Vertex start;
-    Vertex end;
+    public Vertex start;
+    public Vertex end;
     Flag flag = null;
 
     public Edge(Vertex start, Vertex end, String flag) {

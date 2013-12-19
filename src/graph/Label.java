@@ -1,5 +1,5 @@
 package graph;
 
 public enum Label {
-    falsee, day, off
+    falsee, day, truee, low, off
 }
