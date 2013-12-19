@@ -50,26 +50,8 @@ public class Operations {
         throw new RuntimeException("Not implemented");
     }
 
-    public List<Vertex> findVerticesWithSensorAndLabel(Graph graph, Vertex.Sensor sensor, Label flag) {
+    private List<Vertex> getVerticesInSegment(Graph graph, Vertex segment, Vertex.Sensor sensor) {
         throw new RuntimeException("Not implemented");
-    }
-
-    private List<Vertex> getConfigsInSegment(Graph graph, Vertex segment) {
-        return null;
-    }
-
-    private List<Vertex> findSegments_2a2b(Graph graph) {
-        return null;
-    }
-
-    private List<Vertex> findSegments_1a1b(Graph graph) {
-        List<Vertex> v2 = findVerticesWithSensor(graph, Vertex.Sensor.s);
-        List<Vertex> v3 = findVerticesWithSensorAndLabel(graph, Vertex.Sensor.s, Label.off);
-        return null; // v2 - v3
-    }
-
-    private List<Vertex> getSensorsInSegment(Graph graph, Vertex segment) {
-        return null;
     }
 
     public void init(Graph graph) {
@@ -103,6 +85,11 @@ public class Operations {
 
 
      */
+
+    private List<Vertex> findSegments_1a1b(Graph graph) {
+        return null; // v2 - v3
+    }
+
     public void rule_1a1b(Graph graph) {
 
         List<Vertex> segments = findSegments_1a1b(graph);
@@ -111,14 +98,14 @@ public class Operations {
             boolean foundSensor = false;
             boolean foundConfig = false;
 
-            List<Vertex> sensors = getSensorsInSegment(graph, segment);
+            List<Vertex> sensors = getVerticesInSegment(graph, segment, Vertex.Sensor.k);
             for(Vertex sensor : sensors) {
-                if(sensor.sensor == Vertex.Sensor.k && hasLabel(graph, sensor, Label.falsee)) {
+                if(hasLabel(graph, sensor, Label.falsee)) {
                     foundSensor = true;
                 }
             }
 
-            List<Vertex> configs = getConfigsInSegment(graph, segment);
+            List<Vertex> configs = getVerticesInSegment(graph, segment, Vertex.Sensor.c);
             for(Vertex config : configs) {
                 foundConfig = true;
                 break;
@@ -144,6 +131,10 @@ public class Operations {
 
      */
 
+    private List<Vertex> findSegments_2a2b(Graph graph) {
+        return null;
+    }
+
     public void rule_2a2b(Graph graph) {
 
         List<Vertex> segments = findSegments_2a2b(graph);
@@ -154,18 +145,21 @@ public class Operations {
             boolean foundSensor2 = false;
             boolean foundConfig = false;
 
-            List<Vertex> sensors = getSensorsInSegment(graph, segment);
-            for(Vertex sensor : sensors) {
-                if(sensor.sensor == Vertex.Sensor.k && hasLabel(graph, sensor, Label.truee)) {
+            for(Vertex sensor : getVerticesInSegment(graph, segment, Vertex.Sensor.k)) {
+                if(hasLabel(graph, sensor, Label.truee)){
                     foundSensor1 = true;
-                }
-                if(sensor.sensor == Vertex.Sensor.p && hasLabel(graph, sensor, Label.falsee)) {
-                    foundSensor2 = true;
+                    break;
                 }
             }
 
-            List<Vertex> configs = getConfigsInSegment(graph, segment);
-            for(Vertex config : configs) {
+            for(Vertex sensor : getVerticesInSegment(graph, segment, Vertex.Sensor.p)) {
+                if(hasLabel(graph, sensor, Label.falsee)){
+                    foundSensor2 = true;
+                    break;
+                }
+            }
+
+            for(Vertex config : getVerticesInSegment(graph, segment, Vertex.Sensor.c)) {
                 if(hasLabel(graph, config, Label.low)) {
                     foundConfig = true;
                     break;
