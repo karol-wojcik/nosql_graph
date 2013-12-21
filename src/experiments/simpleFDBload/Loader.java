@@ -59,7 +59,7 @@ public class Loader {
             System.out.println("k: " + keyTuple.getString(1) + keyTuple.getLong(2) + "  v: " + valueTuple.getString(0));
         }
 
-        System.out.println("Write time: " + (t2-t1) / 1e9);
+        System.out.println("Parse + write time: " + (t2-t1) / 1e9);
         System.out.println("Read time: " + (t3-t2) / 1e9);
     }
 }
