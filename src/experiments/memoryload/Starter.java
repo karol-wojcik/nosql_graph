@@ -8,11 +8,11 @@ import parser.Vertex;
 import java.io.File;
 import java.io.IOException;
 
-public class MemoryLoad {
+public class Starter {
 
     public void readAndAddToList() {
 
-        final GraphContainer container = new GraphContainer();
+        final MemoryGraph container = new MemoryGraph();
 
         GraphParser parser = new GraphParser();
         parser.parse(new File("assets/100_gs_e.pl"), new GraphParser.Listener<Vertex>() {
@@ -32,7 +32,7 @@ public class MemoryLoad {
     public static void main(String[] args) throws IOException {
 
         MicroBenchmarkRunner runner = new MicroBenchmarkRunner();
-        final MemoryLoad memoryLoad = new MemoryLoad();
+        final Starter memoryLoad = new Starter();
 
         MicroBenchmarkRunner.ExecutionLog result = runner.run(new Runnable() {
             @Override

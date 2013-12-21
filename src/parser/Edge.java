@@ -9,7 +9,7 @@ package parser;
 public class Edge {
     public Vertex start;
     public Vertex end;
-    Flag flag = null;
+    public Flag flag = null;
 
     public Edge(Vertex start, Vertex end, String flag) {
         this.start = start;
@@ -40,6 +40,16 @@ public class Edge {
             return flag.toString();
         }
         return null;
+    }
+
+    @Override
+    public boolean equals(Object arg0) {
+        if(arg0 instanceof Edge) {
+            Edge e = (Edge)arg0;
+            return e.start == start && e.end == end;
+        } else {
+            return false;
+        }
     }
 
     public static enum Flag {

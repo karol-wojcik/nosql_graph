@@ -8,7 +8,7 @@ package parser;
  */
 public class Vertex {
     public Sensor sensor;
-    int id;
+    public int id;
 
     public Vertex(int id, String sensor) {
         this.sensor = Sensor.valueOf(sensor);
@@ -33,4 +33,23 @@ public class Vertex {
     }
 
     public static enum Sensor {a,s,c,k,d,p,h,l}
+
+    @Override
+    public boolean equals(Object arg0) {
+        if(arg0 instanceof Vertex) {
+            Vertex v = (Vertex)arg0;
+            return v.id == id && v.sensor == sensor;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return (sensor.toString() + Integer.toString(id)).hashCode();
+    }
+
+
+
+
 }
