@@ -26,6 +26,7 @@ public class Rules {
         for(Vertex segment : g.getSegmentsWithoutLabel(Label.off)) {
             boolean foundSensor = g.segmentHasSensor(segment, Vertex.Sensor.k, Label.falsee);
             boolean foundConfig = g.segmentHas(segment, Vertex.Sensor.c);
+            System.out.println(segment.toString() + " foundSensor: " + foundSensor + " foundConfig: " + foundConfig);
 
             if(foundConfig && foundSensor) {
                 found = true;
@@ -77,7 +78,7 @@ public class Rules {
 
      */
 
-    public boolean rule_3a3b(Graph g) {
+    public static boolean rule_3a3b(Graph g) {
         boolean found = false;
         for(Vertex segment : g.getSegmentsWithoutLabel(Label.high)) {
             boolean foundSensor1 = g.segmentHasSensor(segment, Vertex.Sensor.k, Label.truee);
@@ -106,7 +107,7 @@ r('4a'):-
 
      */
 
-    public boolean rule_4a(Graph g) {
+    public static boolean rule_4a(Graph g) {
         boolean found = false;
         for(Vertex segment : g.getSegmentsWithoutLabel(Label.high)) {
             boolean foundSensor1 = g.segmentHasSensor(segment, Vertex.Sensor.k, Label.truee);
@@ -137,7 +138,7 @@ r('4b'):-
 
      */
 
-    public boolean rule_4b(Graph g) {
+    public static boolean rule_4b(Graph g) {
         boolean found = false;
         for(Vertex segment : g.getSegmentsWithoutLabel(Label.high)) {
             boolean foundSensor1 = g.segmentHasSensor(segment, Vertex.Sensor.k, Label.truee);
@@ -168,7 +169,7 @@ r('5a'):-
 
      */
 
-    public boolean rule_5a(Graph g) {
+    public static boolean rule_5a(Graph g) {
         boolean found = false;
         for(Vertex segment : g.getSegmentsWithoutLabel(Label.off)) {
             boolean foundSensor1 = g.segmentHasSensor(segment, Vertex.Sensor.k, Label.truee);
@@ -197,7 +198,7 @@ r('5b'):-
 
             */
 
-    public boolean rule_5b(Graph g) {
+    public static boolean rule_5b(Graph g) {
         boolean found = false;
         for(Vertex segment : g.getSegmentsWithoutLabel(Label.off)) {
             boolean foundSensor1 = g.segmentHasSensor(segment, Vertex.Sensor.k, Label.truee);
@@ -226,7 +227,7 @@ r(6) :-
 
             */
 
-    public boolean rule_6(Graph g) {
+    public static boolean rule_6(Graph g) {
         boolean found = false;
         for(Vertex segment : g.getSegmentsWithoutLabel(Label.high)) {
             if(g.segmentHasSensor(segment, Vertex.Sensor.h, Label.day, 1) &&
@@ -253,7 +254,7 @@ r(7) :-
 
             */
 
-    public boolean rule_7(Graph g) {
+    public static boolean rule_7(Graph g) {
         boolean found = false;
         for(Vertex segment : g.getSegmentsWithoutLabel(Label.off)) {
             if(g.segmentHasSensor(segment, Vertex.Sensor.h, Label.day, 1) &&
@@ -280,7 +281,7 @@ p(high) :-
 
      */
 
-    public void profile_high(Graph g) {
+    public static void profile_high(Graph g) {
         for(Vertex segment : g.getSegmentsWithLabel(Label.high)) {
 
             g.clearLabels(segment);
@@ -312,7 +313,7 @@ p(low) :-
 
      */
 
-    public void profile_low(Graph g) {
+    public static void profile_low(Graph g) {
         List<Vertex> low = g.getSegmentsWithLabel(Label.low);
         List<Vertex> high = g.getSegmentsWithLabel(Label.high);
         List<Vertex> segments = ListUtils.subtract(low, high);
@@ -348,7 +349,7 @@ p(low) :-
 
      */
 
-    public void profile_off(Graph g) {
+    public static void profile_off(Graph g) {
         List<Vertex> off = g.getSegmentsWithLabel(Label.off);
         List<Vertex> low = g.getSegmentsWithLabel(Label.low);
         List<Vertex> high = g.getSegmentsWithLabel(Label.high);
