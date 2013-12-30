@@ -4,6 +4,7 @@ import graph.Operations;
 import graph.Rules;
 import parser.Edge;
 import parser.GraphParser;
+import parser.ResultTester;
 import parser.Vertex;
 
 import java.io.File;

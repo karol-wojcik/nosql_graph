@@ -7,35 +7,48 @@ import difflib.Patch;
 import graph.Graph;
 import graph.Label;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 public class ResultTester {
 
-    public static Patch compare(File expected, Graph g) {
-        List<String> our = new ArrayList<String>();
+    public static void generateResultsFile(Graph g, Integer fileName) throws IOException {
+        File file = new File("assets/results/ours/" + fileName + ".txt");
+
+        // if file doesnt exists, then create it
+        if (!file.exists()) {
+            file.createNewFile();
+        }
+
+        FileWriter fw = new FileWriter(file.getAbsoluteFile());
+        BufferedWriter bw = new BufferedWriter(fw);
         for(Vertex segment : g.getSegments()) {
             for(Vertex config : g.segmentGetConfiguration(segment, Edge.Flag.high)) {
                 Label label = g.configGetLabel(config);
-                our.add("s" + segment.id + "-high-c" + config.id + " " + label);
+                bw.write("s" + segment.id + "-high-c" + config.id + " " + label);
+                bw.newLine();
             }
             for(Vertex config : g.segmentGetConfiguration(segment, Edge.Flag.low)) {
                 Label label = g.configGetLabel(config);
-                our.add("s" + segment.id + "-low-c" + config.id + " " + label);
+                bw.write("s" + segment.id + "-low-c" + config.id + " " + label);
+                bw.newLine();
             }
         }
+        bw.close();
+    }
 
+    public static Patch compare(File expected, File ours) {
+        List<String> our = fileToLines(ours);
         List<String> theirs = fileToLines(expected);
         return DiffUtils.diff(our, theirs);
     }
 
     public static void printResults(Patch patch) {
-        for (Delta delta: patch.getDeltas()) {
+        List<Delta> deltas = patch.getDeltas();
+        System.out.println(deltas.size() + " differences");
+        for (Delta delta: deltas) {
             System.out.println(delta);
         }
     }

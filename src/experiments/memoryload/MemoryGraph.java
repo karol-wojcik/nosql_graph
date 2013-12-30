@@ -206,26 +206,59 @@ public class MemoryGraph implements Graph {
 
     @Override
     public List<Vertex> segmentGetConfiguration(Vertex segment) {
-        return null;
+        List<Vertex> ret = new ArrayList<Vertex>();
+        for(Edge e : edges) {
+            if(e.getStart().equals(segment)) {
+                if (e.getEnd().sensor == Vertex.Sensor.c) {
+                    ret.add(e.getEnd());
+                }
+            }
+            if(e.getEnd().equals(segment)) {
+                if (e.getStart().sensor == Vertex.Sensor.c) {
+                    ret.add(e.getStart());
+                }
+            }
+        }
+        return ret;
     }
 
     @Override
     public List<Vertex> segmentGetConfiguration(Vertex segment, Edge.Flag flag) {
-        return null;
+        List<Vertex> ret = new ArrayList<Vertex>();
+        for(Edge e : edges) {
+            if(e.getStart().equals(segment)) {
+                if (e.flag == flag) {
+                    ret.add(e.getEnd());
+                }
+            }
+            if(e.getEnd().equals(segment)) {
+                if (e.flag == flag) {
+                    ret.add(e.getStart());
+                }
+            }
+        }
+        return ret;
     }
 
     @Override
-    public List<Vertex> getSegmentsWithLabel(Label high) {
-        return null;
+    public List<Vertex> getSegmentsWithLabel(Label label) {
+        List<Vertex> ret = new ArrayList<Vertex>();
+        List<Vertex> segments = findVerticesWithSensor(Vertex.Sensor.s);
+        for(Vertex v : segments) {
+            if(getLabels(v).contains(label)) {
+                ret.add(v);
+            }
+        }
+        return ret;
     }
 
     @Override
     public List<Vertex> getSegments() {
-        return null;
+        return findVerticesWithSensor(Vertex.Sensor.s);
     }
 
     @Override
     public Label configGetLabel(Vertex config) {
-        return null;
+        return getLabels(config).get(0);
     }
 }

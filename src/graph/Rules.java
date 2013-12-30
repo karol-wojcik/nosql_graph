@@ -26,11 +26,11 @@ public class Rules {
         for(Vertex segment : g.getSegmentsWithoutLabel(Label.off)) {
             boolean foundSensor = g.segmentHasSensor(segment, Vertex.Sensor.k, Label.falsee);
             boolean foundConfig = g.segmentHas(segment, Vertex.Sensor.c);
-            System.out.println(segment.toString() + " foundSensor: " + foundSensor + " foundConfig: " + foundConfig);
 
             if(foundConfig && foundSensor) {
                 found = true;
                 g.addLabel(segment, Label.off);
+                System.out.println("R_1a1b segment: " + segment.toString());
             }
         }
         return found;
@@ -59,6 +59,7 @@ public class Rules {
             if(foundConfig && foundSensor1 && foundSensor2) {
                 found = true;
                 g.addLabel(segment, Label.low);
+//                System.out.println("R_2a2b segment: " + segment.toString());
             }
         }
         return found;
