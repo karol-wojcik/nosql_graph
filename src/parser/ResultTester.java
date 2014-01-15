@@ -45,11 +45,13 @@ public class ResultTester {
         return DiffUtils.diff(our, theirs);
     }
 
-    public static void printResults(Patch patch) {
+    public static void printResults(Patch patch, boolean printDiff) {
         List<Delta> deltas = patch.getDeltas();
         System.out.println(deltas.size() + " differences");
-        for (Delta delta: deltas) {
-            System.out.println(delta);
+        if(printDiff) {
+            for (Delta delta: deltas) {
+                System.out.println(delta);
+            }
         }
     }
 
