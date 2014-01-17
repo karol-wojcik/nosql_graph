@@ -103,8 +103,6 @@ public class Operations {
     public static void ex3(Graph g) throws IOException {
         g.replaceLabel(new Vertex(6, Vertex.Sensor.p), Label.falsee, Label.truee);
         checkRules(g);
-        ResultTester.generateResultsFile(g, 3);
-        compareWithTheirs(3);
     }
 
     /*
@@ -115,8 +113,6 @@ public class Operations {
     public static void ex4(Graph g) throws IOException {
         g.replaceLabel(new Vertex(1, Vertex.Sensor.d), Label.falsee, Label.truee);
         checkRules(g);
-        ResultTester.generateResultsFile(g, 4);
-        compareWithTheirs(4);
     }
 
     /*
@@ -127,8 +123,6 @@ public class Operations {
     public static void ex5(Graph g) throws IOException {
         g.replaceLabel(new Vertex(8, Vertex.Sensor.d), Label.falsee, Label.truee);
         checkRules(g);
-        ResultTester.generateResultsFile(g, 5);
-        compareWithTheirs(5);
     }
 
     /*
@@ -139,8 +133,6 @@ public class Operations {
     public static void ex6(Graph g) throws IOException {
         g.replaceLabel(new Vertex(1, Vertex.Sensor.d), Label.truee, Label.falsee);
         checkRules(g);
-        ResultTester.generateResultsFile(g, 6);
-        compareWithTheirs(6);
     }
 
     /*
@@ -151,8 +143,6 @@ public class Operations {
     public static void ex7(Graph g) throws IOException {
         g.replaceLabel(new Vertex(1, Vertex.Sensor.p), Label.truee, Label.falsee);
         checkRules(g);
-        ResultTester.generateResultsFile(g, 7);
-        compareWithTheirs(7);
     }
 
     /*
@@ -163,8 +153,6 @@ public class Operations {
     public static void ex8(Graph g) throws IOException {
         g.replaceLabel(new Vertex(8, Vertex.Sensor.d), Label.truee, Label.falsee);
         checkRules(g);
-        ResultTester.generateResultsFile(g, 8);
-        compareWithTheirs(8);
     }
 
     /*
@@ -175,10 +163,5 @@ public class Operations {
     public static void ex9(Graph g) throws IOException {
         g.replaceLabel(new Vertex(6, Vertex.Sensor.p), Label.truee, Label.falsee);
         checkRules(g);
-        ResultTester.generateResultsFile(g, 9);
-        compareWithTheirs(9);
     }
-
-
-
 }

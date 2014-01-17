@@ -33,23 +33,45 @@ public class RunTest {
             }
         });
 
-        System.out.println("Running ex0");
         Operations.ex0(graph);
-
         ResultTester.generateResultsFile(graph, 0);
         compareWithTheirs(0, false);
 
-        System.out.println("Running ex1");
         Operations.ex1(graph);
-
         ResultTester.generateResultsFile(graph, 1);
         compareWithTheirs(1, false);
 
-        System.out.println("Running ex2");
         Operations.ex2(graph);
-
         ResultTester.generateResultsFile(graph, 2);
         compareWithTheirs(2, false);
+
+        Operations.ex3(graph);
+        ResultTester.generateResultsFile(graph, 3);
+        compareWithTheirs(3, false);
+
+        Operations.ex4(graph);
+        ResultTester.generateResultsFile(graph, 4);
+        compareWithTheirs(4, false);
+
+        Operations.ex5(graph);
+        ResultTester.generateResultsFile(graph, 5);
+        compareWithTheirs(5, false);
+
+        Operations.ex6(graph);
+        ResultTester.generateResultsFile(graph, 6);
+        compareWithTheirs(6, false);
+
+        Operations.ex7(graph);
+        ResultTester.generateResultsFile(graph, 7);
+        compareWithTheirs(7, false);
+
+        Operations.ex8(graph);
+        ResultTester.generateResultsFile(graph, 8);
+        compareWithTheirs(8, false);
+
+        Operations.ex9(graph);
+        ResultTester.generateResultsFile(graph, 9);
+        compareWithTheirs(9, false);
     }
 
     private static void compareWithTheirs(Integer experiment, boolean printDiff) {
@@ -60,13 +82,5 @@ public class RunTest {
                         new File("assets/results/ours/" + experiment + ".txt")
                 ), printDiff
         );
-        Operations.ex2(graph);
-        Operations.ex3(graph);
-        Operations.ex4(graph);
-        Operations.ex5(graph);
-        Operations.ex6(graph);
-        Operations.ex7(graph);
-        Operations.ex8(graph);
-        Operations.ex9(graph);
     }
 }
