@@ -31,7 +31,7 @@ public class Rules {
             if(foundConfig && foundSensor) {
                 found = true;
                 g.addLabel(segment, Label.off);
-                System.out.println("R_1a1b segment: " + segment.toString());
+//                System.out.println("R_1a1b segment: " + segment.toString());
             }
         }
         return found;
@@ -283,8 +283,10 @@ p(high) :-
 
      */
 
-    public static void profile_high(Graph g) {
+    public static boolean profile_high(Graph g) {
         List<Vertex> segmentConf;
+        boolean found = false;
+
         for(Vertex segment : g.getSegmentsWithLabel(Label.high)) {
             segmentConf = g.segmentGetConfiguration(segment, Edge.Flag.high);
             if(segmentConf.size() > 0) {
@@ -303,6 +305,8 @@ p(high) :-
 
             }
         }
+
+        return false;
     }
 
 
@@ -320,7 +324,9 @@ p(low) :-
 
      */
 
-    public static void profile_low(Graph g) {
+    public static boolean profile_low(Graph g) {
+        boolean found = false;
+
         List<Vertex> low = g.getSegmentsWithLabel(Label.low);
         List<Vertex> high = g.getSegmentsWithLabel(Label.high);
         List<Vertex> segments = ListUtils.subtract(low, high);
@@ -344,6 +350,8 @@ p(low) :-
                 }
             }
         }
+
+        return found;
     }
 
         /*
@@ -359,7 +367,9 @@ p(off) :-
 
      */
 
-    public static void profile_off(Graph g) {
+    public static boolean profile_off(Graph g) {
+        boolean found = false;
+
         List<Vertex> off = g.getSegmentsWithLabel(Label.off);
         List<Vertex> low = g.getSegmentsWithLabel(Label.low);
         List<Vertex> high = g.getSegmentsWithLabel(Label.high);
@@ -377,6 +387,8 @@ p(off) :-
 
 
         }
+
+        return found;
     }
 
 }

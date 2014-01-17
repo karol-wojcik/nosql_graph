@@ -17,8 +17,11 @@ public class MemoryGraph implements Graph {
 
     public HashMap<Vertex, ArrayList<Label>> vertexLabels = new HashMap<Vertex, ArrayList<Label>>();
 
+    //
+    // LABELS
+    //
 
-    private ArrayList<Label> getLabels(Vertex v) {
+    public ArrayList<Label> getLabels(Vertex v) {
         ArrayList<Label> labels = vertexLabels.get(v);
         if(labels == null) {
             labels = new ArrayList<Label>();
@@ -27,32 +30,40 @@ public class MemoryGraph implements Graph {
         return labels;
     }
 
+    /**
+     * remove/retract vertex label (RETRACT)
+     */
     @Override
     public void removeLabel(Vertex vertex, Label label) {
         getLabels(vertex).remove(label);
     }
 
+    /**
+     * add/assert vertex label
+     */
     @Override
     public void addLabel(Vertex vertex, Label label) {
         getLabels(vertex).add(label);
     }
 
+    /**
+     * change labels From To
+     */
     @Override
     public void replaceLabel(Vertex vertex, Label from, Label to) {
-        //FIXME should work if From not found ?
-        ArrayList<Label> labels = getLabels(vertex);
-        if(labels != null) {
-            if(labels.contains(from)) {
-                labels.remove(from);
-                labels.add(to);
-            }
-        }
+        removeLabel(vertex, from);
+        addLabel(vertex, to);
     }
 
+    /**
+     * clear selected labels (RETRACT ALL)
+     */
     @Override
-    public void clearLabels(Vertex vertex, Label label) {
-        //FIXME is this different then removeLabel() ?
-        getLabels(vertex).remove(label);
+    public void clearLabel(Vertex vertex, Label label) {
+        while(true) {
+            boolean found = getLabels(vertex).remove(label);
+            if(!found) break;;
+        }
     }
 
     @Override
@@ -74,6 +85,10 @@ public class MemoryGraph implements Graph {
     public void configRemoveLabel(Vertex vertex) {
         clearLabels(vertex);
     }
+
+    //
+    // VERTICES
+    //
 
     @Override
     public List<Vertex> findVerticesWithSensor(Vertex.Sensor sensor) {

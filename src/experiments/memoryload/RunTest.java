@@ -22,8 +22,8 @@ public class RunTest {
 
         GraphParser parser = new GraphParser();
         parser.parse(new File("assets/100_gs_e.pl"), new GraphParser.Listener<Vertex>() {
-                    @Override
-                    public void onItem(Vertex item) {
+            @Override
+            public void onItem(Vertex item) {
                 graph.vertices.add(item);
             }
         }, new GraphParser.Listener<Edge>() {
@@ -33,8 +33,33 @@ public class RunTest {
             }
         });
 
+        System.out.println("Running ex0");
         Operations.ex0(graph);
+
+        ResultTester.generateResultsFile(graph, 0);
+        compareWithTheirs(0, false);
+
+        System.out.println("Running ex1");
         Operations.ex1(graph);
+
+        ResultTester.generateResultsFile(graph, 1);
+        compareWithTheirs(1, false);
+
+        System.out.println("Running ex2");
+        Operations.ex2(graph);
+
+        ResultTester.generateResultsFile(graph, 2);
+        compareWithTheirs(2, false);
+    }
+
+    private static void compareWithTheirs(Integer experiment, boolean printDiff) {
+        System.out.print("Results of Ex. " + experiment + ": ");
+        ResultTester.printResults(
+                ResultTester.compare(
+                        new File("assets/results/theirs/" + experiment + ".txt"),
+                        new File("assets/results/ours/" + experiment + ".txt")
+                ), printDiff
+        );
         Operations.ex2(graph);
         Operations.ex3(graph);
         Operations.ex4(graph);

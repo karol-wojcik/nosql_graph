@@ -17,7 +17,7 @@ public interface Graph {
     public void replaceLabel(Vertex vertex, Label from, Label to);
 
     // vlc (ALL of this kind)
-    public void clearLabels(Vertex vertex, Label label);
+    public void clearLabel(Vertex vertex, Label label);
 
     // vlc (ALL in VERTEX)
     public void clearLabels(Vertex vertex);
