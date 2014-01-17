@@ -35,5 +35,13 @@ public class RunTest {
 
         Operations.ex0(graph);
         Operations.ex1(graph);
+        Operations.ex2(graph);
+        Operations.ex3(graph);
+        Operations.ex4(graph);
+        Operations.ex5(graph);
+        Operations.ex6(graph);
+        Operations.ex7(graph);
+        Operations.ex8(graph);
+        Operations.ex9(graph);
     }
 }

@@ -1,0 +1,17 @@
+s1-high-c1 on
+s1-low-c2 off
+s2-high-c5 off
+s2-low-c6 on
+s3-high-c7 off
+s3-low-c8 on
+s4-high-c9 off
+s4-low-c10 on
+s5-high-c11 off
+s5-low-c12 on
+s6-high-c13 off
+s6-low-c14 on
+s7-high-c15 off
+s7-low-c16 off
+s8-high-c17 off
+s8-low-c18 off
+s9-high-c19 off

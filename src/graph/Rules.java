@@ -4,6 +4,7 @@ import org.apache.commons.collections4.ListUtils;
 import parser.Edge;
 import parser.Vertex;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Rules {
@@ -236,7 +237,7 @@ r(6) :-
                     g.segmentHasConfiguration(segment, Edge.Flag.high))
             {
                 found = true;
-                g.addLabel(segment, Label.off);
+                g.addLabel(segment, Label.high);
             }
         }
         return found;
@@ -283,18 +284,23 @@ p(high) :-
      */
 
     public static void profile_high(Graph g) {
+        List<Vertex> segmentConf;
         for(Vertex segment : g.getSegmentsWithLabel(Label.high)) {
+            segmentConf = g.segmentGetConfiguration(segment, Edge.Flag.high);
+            if(segmentConf.size() > 0) {
 
-            g.clearLabels(segment);
+                g.clearLabels(segment);
 
-            for(Vertex config : g.segmentGetConfiguration(segment, Edge.Flag.high)) {
-                g.configRemoveLabel(config);
-                g.configAddLabel(config, Label.on);
-            }
+                for(Vertex config : g.segmentGetConfiguration(segment)) {
+                    g.configRemoveLabel(config);
+                    g.configAddLabel(config, Label.off);
+                }
 
-            for(Vertex config : g.segmentGetConfiguration(segment, Edge.Flag.low)) {
-                g.configRemoveLabel(config);
-                g.configAddLabel(config, Label.off);
+                for(Vertex config : segmentConf) {
+                    g.configRemoveLabel(config);
+                    g.configAddLabel(config, Label.on);
+                }
+
             }
         }
     }
@@ -318,35 +324,38 @@ p(low) :-
         List<Vertex> low = g.getSegmentsWithLabel(Label.low);
         List<Vertex> high = g.getSegmentsWithLabel(Label.high);
         List<Vertex> segments = ListUtils.subtract(low, high);
+        List<Vertex> segmentConf;
 
         for(Vertex segment : segments) {
 
-            g.clearLabels(segment);
+            segmentConf = g.segmentGetConfiguration(segment, Edge.Flag.low);
+            if(segmentConf.size() > 0) {
 
-            for(Vertex config : g.segmentGetConfiguration(segment, Edge.Flag.low)) {
-                g.configRemoveLabel(config);
-                g.configAddLabel(config, Label.on);
+                g.clearLabels(segment);
+
+                for(Vertex config : g.segmentGetConfiguration(segment)) {
+                    g.configRemoveLabel(config);
+                    g.configAddLabel(config, Label.off);
+                }
+
+                for(Vertex config : segmentConf) {
+                    g.configRemoveLabel(config);
+                    g.configAddLabel(config, Label.on);
+                }
             }
-
-            for(Vertex config : g.segmentGetConfiguration(segment, Edge.Flag.low)) {
-                g.configRemoveLabel(config);
-                g.configAddLabel(config, Label.off);
-            }
-
         }
     }
 
         /*
 
-p(low) :-
-	v(s,I,low),
+p(off) :-
+	v(s,I,off),
 	\+ v(s,I,high),
-	e(s,I,c,K,low),
+	\+ v(s,I,low),
 	then,
 	vlc(s,I,_),
-	forall(e(s,I,c,J,_),(vlr(c,J,_),vla(c,J,off))),
-	vlr(c,K,_),
-	vla(c,K,on).
+	forall(e(s,I,c,J,_),(vlr(c,J,_),vla(c,J,off))).
+
 
      */
 
