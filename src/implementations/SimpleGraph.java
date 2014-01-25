@@ -1,4 +1,4 @@
-package experiments.memoryload;
+package implementations;
 
 import graph.Graph;
 import graph.Label;
@@ -10,81 +10,47 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
-public class MemoryGraph implements Graph {
-
-    public List<Vertex> vertices = new ArrayList<Vertex>();
-    public List<Edge> edges = new ArrayList<Edge>();
-
-    public HashMap<Vertex, ArrayList<Label>> vertexLabels = new HashMap<Vertex, ArrayList<Label>>();
+public abstract class SimpleGraph implements Graph {
 
     //
     // LABELS
     //
 
-    public ArrayList<Label> getLabels(Vertex v) {
-        ArrayList<Label> labels = vertexLabels.get(v);
-        if(labels == null) {
-            labels = new ArrayList<Label>();
-            vertexLabels.put(v, labels);
-        }
-        return labels;
-    }
+    @Override
+    public abstract ArrayList<Label> getLabels(Vertex v);
 
     /**
      * remove/retract vertex label (RETRACT)
      */
     @Override
-    public void removeLabel(Vertex vertex, Label label) {
-        getLabels(vertex).remove(label);
-    }
+    public abstract void removeLabel(Vertex vertex, Label label);
 
     /**
      * add/assert vertex label
      */
     @Override
-    public void addLabel(Vertex vertex, Label label) {
-        getLabels(vertex).add(label);
-    }
+    public abstract void addLabel(Vertex vertex, Label label);
 
     /**
      * change labels From To
      */
     @Override
-    public void replaceLabel(Vertex vertex, Label from, Label to) {
-        removeLabel(vertex, from);
-        addLabel(vertex, to);
-    }
+    public abstract void replaceLabel(Vertex vertex, Label from, Label to);
 
     /**
      * clear selected labels (RETRACT ALL)
      */
     @Override
-    public void clearLabel(Vertex vertex, Label label) {
-        while(true) {
-            boolean found = getLabels(vertex).remove(label);
-            if(!found) break;;
-        }
-    }
+    public abstract void clearLabel(Vertex vertex, Label label);
 
     @Override
-    public void clearLabels(Vertex vertex) {
-        vertexLabels.put(vertex, new ArrayList<Label>());
-    }
+    public abstract void clearLabels(Vertex vertex);
 
     @Override
-    public void clearLabels() {
-        vertexLabels = new HashMap<Vertex, ArrayList<Label>>();
-    }
+    public abstract void clearLabels();
 
-    @Override
-    public void configAddLabel(Vertex vertex, Label label) {
-        addLabel(vertex, label);
-    }
-
-    @Override
-    public void configRemoveLabel(Vertex vertex) {
-        clearLabels(vertex);
-    }
+    public abstract List<Vertex> getVertices();
+    public abstract List<Edge> getEdges();
 
     //
     // VERTICES
@@ -93,7 +59,7 @@ public class MemoryGraph implements Graph {
     @Override
     public List<Vertex> findVerticesWithSensor(Vertex.Sensor sensor) {
         List<Vertex> ret = new ArrayList<Vertex>();
-        for(Vertex v : vertices) {
+        for(Vertex v : getVertices()) {
             if(v.sensor == sensor) {
                 ret.add(v);
             }
@@ -115,8 +81,8 @@ public class MemoryGraph implements Graph {
 
 
     @Override
-    public boolean segmentHasSensor(Vertex segment, Vertex.Sensor sensor, Label label, long id) {
-        for(Edge e : edges) {
+    public boolean segmentHasSensor1(Vertex segment, Vertex.Sensor sensor, Label label, long id) {
+        for(Edge e : getEdges()) {
             if(e.getStart().equals(segment)) {
                 if(e.getEnd().sensor == sensor) {
                     if(getLabels(e.getEnd()).contains(label)) {
@@ -140,8 +106,8 @@ public class MemoryGraph implements Graph {
     }
 
     @Override
-    public boolean segmentHasSensor(Vertex segment, Vertex.Sensor sensor, Label label, Edge.Flag flag) {
-        for(Edge e : edges) {
+    public boolean segmentHasSensor2(Vertex segment, Vertex.Sensor sensor, Label label, Edge.Flag flag) {
+        for(Edge e : getEdges()) {
             if(e.getStart().equals(segment)) {
                 if(e.getEnd().sensor == sensor) {
                     if(getLabels(e.getEnd()).contains(label)) {
@@ -165,8 +131,8 @@ public class MemoryGraph implements Graph {
     }
 
     @Override
-    public boolean segmentHasSensor(Vertex segment, Vertex.Sensor sensor, Label label) {
-        for(Edge e : edges) {
+    public boolean segmentHasSensor3(Vertex segment, Vertex.Sensor sensor, Label label) {
+        for(Edge e : getEdges()) {
             if(e.getStart().equals(segment)) {
                 if(e.getEnd().sensor == sensor) {
                     if(getLabels(e.getEnd()).contains(label)) {
@@ -187,7 +153,7 @@ public class MemoryGraph implements Graph {
 
     @Override
     public boolean segmentHas(Vertex segment, Vertex.Sensor sensor) {
-        for(Edge e : edges) {
+        for(Edge e : getEdges()) {
             if(e.getStart().equals(segment)) {
                 if(e.getEnd().sensor == sensor) {
                     return true;
@@ -204,7 +170,7 @@ public class MemoryGraph implements Graph {
 
     @Override
     public boolean segmentHasConfiguration(Vertex segment, Edge.Flag flag) {
-        for(Edge e : edges) {
+        for(Edge e : getEdges()) {
             if(e.getStart().equals(segment)) {
                 if(e.flag == flag) {
                     return true;
@@ -222,7 +188,7 @@ public class MemoryGraph implements Graph {
     @Override
     public List<Vertex> segmentGetConfiguration(Vertex segment) {
         List<Vertex> ret = new ArrayList<Vertex>();
-        for(Edge e : edges) {
+        for(Edge e : getEdges()) {
             if(e.getStart().equals(segment)) {
                 if (e.getEnd().sensor == Vertex.Sensor.c) {
                     ret.add(e.getEnd());
@@ -240,7 +206,7 @@ public class MemoryGraph implements Graph {
     @Override
     public List<Vertex> segmentGetConfiguration(Vertex segment, Edge.Flag flag) {
         List<Vertex> ret = new ArrayList<Vertex>();
-        for(Edge e : edges) {
+        for(Edge e : getEdges()) {
             if(e.getStart().equals(segment)) {
                 if (e.flag == flag) {
                     ret.add(e.getEnd());

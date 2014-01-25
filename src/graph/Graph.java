@@ -3,9 +3,15 @@ package graph;
 import parser.Edge;
 import parser.Vertex;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface Graph {
+
+    public void addVertex(Vertex vertex);
+    public void addEdge(Edge edge);
+
+    public List<Label> getLabels(Vertex v);
 
     // vlr
     public void removeLabel(Vertex vertex, Label label);
@@ -25,21 +31,15 @@ public interface Graph {
     // vlc (ALL)
     public void clearLabels();
 
-    // vla
-    public void configAddLabel(Vertex vertex, Label label);
-
-    // vlr
-    public void configRemoveLabel(Vertex vertex);
-
     public List<Vertex> findVerticesWithSensor(Vertex.Sensor sensor);
 
     public List<Vertex> getSegmentsWithoutLabel(Label excludedLabel);
 
-    public boolean segmentHasSensor(Vertex segment, Vertex.Sensor sensor, Label label, long id);
+    public boolean segmentHasSensor1(Vertex segment, Vertex.Sensor sensor, Label label, long id);
 
-    public boolean segmentHasSensor(Vertex segment, Vertex.Sensor sensor, Label label, Edge.Flag flag);
+    public boolean segmentHasSensor2(Vertex segment, Vertex.Sensor sensor, Label label, Edge.Flag flag);
 
-    public boolean segmentHasSensor(Vertex segment, Vertex.Sensor sensor, Label label);
+    public boolean segmentHasSensor3(Vertex segment, Vertex.Sensor sensor, Label label);
 
     public boolean segmentHas(Vertex segment, Vertex.Sensor sensor);
 

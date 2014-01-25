@@ -1,6 +1,8 @@
-package experiments.memoryload;
+package experiments;
 
-import experiments.MicroBenchmarkRunner;
+import experiments.tools.MicroBenchmarkRunner;
+import graph.Graph;
+import implementations.MemoryGraph;
 import parser.Edge;
 import parser.GraphParser;
 import parser.Vertex;
@@ -8,23 +10,23 @@ import parser.Vertex;
 import java.io.File;
 import java.io.IOException;
 
-public class Starter {
+public class MemorygraphLoadTest {
 
     public void readAndAddToList() {
 
-        final MemoryGraph container = new MemoryGraph();
+        final Graph container = new MemoryGraph();
 
         GraphParser parser = new GraphParser();
         parser.parse(new File("assets/100_gs_e.pl"), new GraphParser.Listener<Vertex>() {
                     @Override
                     public void onItem(Vertex item) {
-                        container.vertices.add(item);
+                        container.addVertex(item);
 //                        System.out.println(item);
                     }
                 }, new GraphParser.Listener<Edge>() {
                     @Override
                     public void onItem(Edge item) {
-                        container.edges.add(item);
+                        container.addEdge(item);
                     }
                 });
     }
@@ -32,7 +34,7 @@ public class Starter {
     public static void main(String[] args) throws IOException {
 
         MicroBenchmarkRunner runner = new MicroBenchmarkRunner();
-        final Starter memoryLoad = new Starter();
+        final MemorygraphLoadTest memoryLoad = new MemorygraphLoadTest();
 
         MicroBenchmarkRunner.ExecutionLog result = runner.run(new Runnable() {
             @Override

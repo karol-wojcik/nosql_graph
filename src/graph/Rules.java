@@ -4,7 +4,6 @@ import org.apache.commons.collections4.ListUtils;
 import parser.Edge;
 import parser.Vertex;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Rules {
@@ -25,7 +24,7 @@ public class Rules {
     public static boolean rule_1a1b(Graph g) {
         boolean found = false;
         for(Vertex segment : g.getSegmentsWithoutLabel(Label.off)) {
-            boolean foundSensor = g.segmentHasSensor(segment, Vertex.Sensor.k, Label.falsee);
+            boolean foundSensor = g.segmentHasSensor3(segment, Vertex.Sensor.k, Label.falsee);
             boolean foundConfig = g.segmentHas(segment, Vertex.Sensor.c);
 
             if(foundConfig && foundSensor) {
@@ -54,8 +53,8 @@ public class Rules {
     public static boolean rule_2a2b(Graph g) {
         boolean found = false;
         for(Vertex segment : g.getSegmentsWithoutLabel(Label.low)) {
-            boolean foundSensor1 = g.segmentHasSensor(segment, Vertex.Sensor.k, Label.truee);
-            boolean foundSensor2 = g.segmentHasSensor(segment, Vertex.Sensor.p, Label.falsee, Edge.Flag.in);
+            boolean foundSensor1 = g.segmentHasSensor3(segment, Vertex.Sensor.k, Label.truee);
+            boolean foundSensor2 = g.segmentHasSensor2(segment, Vertex.Sensor.p, Label.falsee, Edge.Flag.in);
             boolean foundConfig = g.segmentHasConfiguration(segment, Edge.Flag.low);
             if(foundConfig && foundSensor1 && foundSensor2) {
                 found = true;
@@ -83,8 +82,8 @@ public class Rules {
     public static boolean rule_3a3b(Graph g) {
         boolean found = false;
         for(Vertex segment : g.getSegmentsWithoutLabel(Label.high)) {
-            boolean foundSensor1 = g.segmentHasSensor(segment, Vertex.Sensor.k, Label.truee);
-            boolean foundSensor2 = g.segmentHasSensor(segment, Vertex.Sensor.p, Label.truee, Edge.Flag.in);
+            boolean foundSensor1 = g.segmentHasSensor3(segment, Vertex.Sensor.k, Label.truee);
+            boolean foundSensor2 = g.segmentHasSensor2(segment, Vertex.Sensor.p, Label.truee, Edge.Flag.in);
             boolean foundConfig = g.segmentHasConfiguration(segment, Edge.Flag.high);
             if(foundConfig && foundSensor1 && foundSensor2) {
                 found = true;
@@ -112,9 +111,9 @@ r('4a'):-
     public static boolean rule_4a(Graph g) {
         boolean found = false;
         for(Vertex segment : g.getSegmentsWithoutLabel(Label.high)) {
-            boolean foundSensor1 = g.segmentHasSensor(segment, Vertex.Sensor.k, Label.truee);
-            boolean foundSensor2 = g.segmentHasSensor(segment, Vertex.Sensor.d, Label.truee, Edge.Flag.dir_day);
-            boolean foundSensor3 = g.segmentHasSensor(segment, Vertex.Sensor.h, Label.day, 1);
+            boolean foundSensor1 = g.segmentHasSensor3(segment, Vertex.Sensor.k, Label.truee);
+            boolean foundSensor2 = g.segmentHasSensor2(segment, Vertex.Sensor.d, Label.truee, Edge.Flag.dir_day);
+            boolean foundSensor3 = g.segmentHasSensor1(segment, Vertex.Sensor.h, Label.day, 1);
             boolean foundConfig = g.segmentHasConfiguration(segment, Edge.Flag.high);
             if(foundConfig && foundSensor1 && foundSensor2 && foundSensor3) {
                 found = true;
@@ -143,9 +142,9 @@ r('4b'):-
     public static boolean rule_4b(Graph g) {
         boolean found = false;
         for(Vertex segment : g.getSegmentsWithoutLabel(Label.high)) {
-            boolean foundSensor1 = g.segmentHasSensor(segment, Vertex.Sensor.k, Label.truee);
-            boolean foundSensor2 = g.segmentHasSensor(segment, Vertex.Sensor.d, Label.truee, Edge.Flag.dir_night);
-            boolean foundSensor3 = g.segmentHasSensor(segment, Vertex.Sensor.h, Label.night, 1);
+            boolean foundSensor1 = g.segmentHasSensor3(segment, Vertex.Sensor.k, Label.truee);
+            boolean foundSensor2 = g.segmentHasSensor2(segment, Vertex.Sensor.d, Label.truee, Edge.Flag.dir_night);
+            boolean foundSensor3 = g.segmentHasSensor1(segment, Vertex.Sensor.h, Label.night, 1);
             boolean foundConfig = g.segmentHasConfiguration(segment, Edge.Flag.high);
             if(foundConfig && foundSensor1 && foundSensor2 && foundSensor3) {
                 found = true;
@@ -174,9 +173,9 @@ r('5a'):-
     public static boolean rule_5a(Graph g) {
         boolean found = false;
         for(Vertex segment : g.getSegmentsWithoutLabel(Label.off)) {
-            boolean foundSensor1 = g.segmentHasSensor(segment, Vertex.Sensor.k, Label.truee);
-            boolean foundSensor2 = g.segmentHasSensor(segment, Vertex.Sensor.d, Label.falsee, Edge.Flag.dir_day);
-            boolean foundSensor3 = g.segmentHasSensor(segment, Vertex.Sensor.h, Label.day, 1);
+            boolean foundSensor1 = g.segmentHasSensor3(segment, Vertex.Sensor.k, Label.truee);
+            boolean foundSensor2 = g.segmentHasSensor2(segment, Vertex.Sensor.d, Label.falsee, Edge.Flag.dir_day);
+            boolean foundSensor3 = g.segmentHasSensor1(segment, Vertex.Sensor.h, Label.day, 1);
             boolean foundConfig = g.segmentHasConfiguration(segment, Edge.Flag.high);
             if(foundConfig && foundSensor1 && foundSensor2 && foundSensor3) {
                 found = true;
@@ -203,9 +202,9 @@ r('5b'):-
     public static boolean rule_5b(Graph g) {
         boolean found = false;
         for(Vertex segment : g.getSegmentsWithoutLabel(Label.off)) {
-            boolean foundSensor1 = g.segmentHasSensor(segment, Vertex.Sensor.k, Label.truee);
-            boolean foundSensor2 = g.segmentHasSensor(segment, Vertex.Sensor.d, Label.falsee, Edge.Flag.dir_night);
-            boolean foundSensor3 = g.segmentHasSensor(segment, Vertex.Sensor.h, Label.night, 1);
+            boolean foundSensor1 = g.segmentHasSensor3(segment, Vertex.Sensor.k, Label.truee);
+            boolean foundSensor2 = g.segmentHasSensor2(segment, Vertex.Sensor.d, Label.falsee, Edge.Flag.dir_night);
+            boolean foundSensor3 = g.segmentHasSensor1(segment, Vertex.Sensor.h, Label.night, 1);
             boolean foundConfig = g.segmentHasConfiguration(segment, Edge.Flag.high);
             if(foundConfig && foundSensor1 && foundSensor2 && foundSensor3) {
                 found = true;
@@ -232,8 +231,8 @@ r(6) :-
     public static boolean rule_6(Graph g) {
         boolean found = false;
         for(Vertex segment : g.getSegmentsWithoutLabel(Label.high)) {
-            if(g.segmentHasSensor(segment, Vertex.Sensor.h, Label.day, 1) &&
-                    g.segmentHasSensor(segment, Vertex.Sensor.d, Label.truee, Edge.Flag.interior) &&
+            if(g.segmentHasSensor1(segment, Vertex.Sensor.h, Label.day, 1) &&
+                    g.segmentHasSensor2(segment, Vertex.Sensor.d, Label.truee, Edge.Flag.interior) &&
                     g.segmentHasConfiguration(segment, Edge.Flag.high))
             {
                 found = true;
@@ -259,8 +258,8 @@ r(7) :-
     public static boolean rule_7(Graph g) {
         boolean found = false;
         for(Vertex segment : g.getSegmentsWithoutLabel(Label.off)) {
-            if(g.segmentHasSensor(segment, Vertex.Sensor.h, Label.day, 1) &&
-                    g.segmentHasSensor(segment, Vertex.Sensor.d, Label.falsee, Edge.Flag.interior) &&
+            if(g.segmentHasSensor1(segment, Vertex.Sensor.h, Label.day, 1) &&
+                    g.segmentHasSensor2(segment, Vertex.Sensor.d, Label.falsee, Edge.Flag.interior) &&
                     g.segmentHasConfiguration(segment, Edge.Flag.high))
             {
                 found = true;
@@ -294,13 +293,13 @@ p(high) :-
                 g.clearLabels(segment);
 
                 for(Vertex config : g.segmentGetConfiguration(segment)) {
-                    g.configRemoveLabel(config);
-                    g.configAddLabel(config, Label.off);
+                    g.clearLabels(config);
+                    g.addLabel(config, Label.off);
                 }
 
                 for(Vertex config : segmentConf) {
-                    g.configRemoveLabel(config);
-                    g.configAddLabel(config, Label.on);
+                    g.clearLabels(config);
+                    g.addLabel(config, Label.on);
                 }
 
             }
@@ -340,13 +339,13 @@ p(low) :-
                 g.clearLabels(segment);
 
                 for(Vertex config : g.segmentGetConfiguration(segment)) {
-                    g.configRemoveLabel(config);
-                    g.configAddLabel(config, Label.off);
+                    g.clearLabels(config);
+                    g.addLabel(config, Label.off);
                 }
 
                 for(Vertex config : segmentConf) {
-                    g.configRemoveLabel(config);
-                    g.configAddLabel(config, Label.on);
+                    g.clearLabels(config);
+                    g.addLabel(config, Label.on);
                 }
             }
         }
@@ -381,8 +380,8 @@ p(off) :-
             g.clearLabels(segment);
 
             for(Vertex config : g.segmentGetConfiguration(segment)) {
-                g.configRemoveLabel(config);
-                g.configAddLabel(config, Label.off);
+                g.clearLabels(config);
+                g.addLabel(config, Label.off);
             }
 
 

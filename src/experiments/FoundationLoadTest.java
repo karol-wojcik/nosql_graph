@@ -1,4 +1,4 @@
-package experiments.simpleFDBload;
+package experiments;
 
 import com.foundationdb.Database;
 import com.foundationdb.FDB;
@@ -13,7 +13,7 @@ import parser.Vertex;
 
 import java.io.File;
 
-public class Loader {
+public class FoundationLoadTest {
     public static void main(String[] args) {
         FDB fdb = FDB.selectAPIVersion(100);
         Database db = fdb.open();
