@@ -74,4 +74,14 @@ public class CachedMemoryGraph extends MemoryGraph {
 
         return super.segmentHasSensor2(segment, sensor, label, flag);
     }
+
+    @Override
+    public boolean segmentHasSensor1(Vertex segment, Vertex.Sensor sensor, Label label, long id) {
+        return super.segmentHasSensor1(segment, sensor, label, id);
+    }
+
+    @Override
+    public boolean segmentHasSensor3(Vertex segment, Vertex.Sensor sensor, Label label) {
+        return super.segmentHasSensor3(segment, sensor, label);
+    }
 }
