@@ -2,6 +2,7 @@ package experiments;
 
 import graph.Graph;
 import graph.Operations;
+import implementations.FoundationGraph;
 import implementations.MemoryGraph;
 import parser.Edge;
 import parser.GraphParser;
@@ -22,7 +23,7 @@ public class FullDatasetTest {
 
         while(true) {
 
-            final Graph graph = new MemoryGraph();
+            final Graph graph = new FoundationGraph();
 //        final CachedMemoryGraph graph = new CachedMemoryGraph();
 
             GraphParser parser = new GraphParser();
