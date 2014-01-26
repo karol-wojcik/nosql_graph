@@ -2,6 +2,7 @@ package experiments;
 
 import graph.Graph;
 import graph.Operations;
+import implementations.CachedMemoryGraph;
 import implementations.FoundationGraph;
 import implementations.MemoryGraph;
 import parser.Edge;
@@ -23,8 +24,8 @@ public class FullDatasetTest {
 
         while(true) {
 
-            final Graph graph = new FoundationGraph();
-//        final CachedMemoryGraph graph = new CachedMemoryGraph();
+    //            final Graph graph = new FoundationGraph();
+            final Graph graph = new CachedMemoryGraph();
 
             GraphParser parser = new GraphParser();
             parser.parse(new File("assets/100_gs_e.pl"), new GraphParser.Listener<Vertex>() {
@@ -40,64 +41,68 @@ public class FullDatasetTest {
                     });
 
             long startTime;
+            long results[] = new long[10];
 
-            startTime = System.currentTimeMillis();
-            Operations.ex0(graph);
-            System.out.println("Running time: " + (System.currentTimeMillis() - startTime));
-            ResultTester.generateResultsFile(graph, 0);
-            compareWithTheirs(0, false);
+            for(int i = 0; i < 10; i++) {
+                System.out.println("Running test no. " + i);
 
-            startTime = System.currentTimeMillis();
-            Operations.ex1(graph);
-            System.out.println("Running time: " + (System.currentTimeMillis() - startTime));
-            ResultTester.generateResultsFile(graph, 1);
-            compareWithTheirs(1, false);
+                startTime = System.currentTimeMillis();
+                runOperation(i, graph);
+                results[i] = System.currentTimeMillis() - startTime;
+                System.out.println("Running time: " + results[i]);
+                ResultTester.generateResultsFile(graph, i);
+                boolean passed = compareWithTheirs(i, true);
 
-            startTime = System.currentTimeMillis();
-            Operations.ex2(graph);
-            System.out.println("Running time: " + (System.currentTimeMillis() - startTime));
-            ResultTester.generateResultsFile(graph, 2);
-            compareWithTheirs(2, false);
+                if(!passed) {
+                    System.out.println("!!!TEST FAILED!!!");
+                    break;
+                }
+            }
 
-            Operations.ex3(graph);
-            ResultTester.generateResultsFile(graph, 3);
-            compareWithTheirs(3, false);
+            System.out.println("Times: ");
+            long sum = 0;
+            for(long time : results) {
+                System.out.print(time + " ");
+                sum += time;
+            }
 
-            Operations.ex4(graph);
-            ResultTester.generateResultsFile(graph, 4);
-            compareWithTheirs(4, false);
+            System.out.println(" ");
+            System.out.println("Sum: " + sum);
 
-            Operations.ex5(graph);
-            ResultTester.generateResultsFile(graph, 5);
-            compareWithTheirs(5, false);
-
-            Operations.ex6(graph);
-            ResultTester.generateResultsFile(graph, 6);
-            compareWithTheirs(6, false);
-
-            Operations.ex7(graph);
-            ResultTester.generateResultsFile(graph, 7);
-            compareWithTheirs(7, false);
-
-            Operations.ex8(graph);
-            ResultTester.generateResultsFile(graph, 8);
-            compareWithTheirs(8, false);
-
-            Operations.ex9(graph);
-            ResultTester.generateResultsFile(graph, 9);
-            compareWithTheirs(9, false);
         }
-
-
     }
 
-    private static void compareWithTheirs(Integer experiment, boolean printDiff) {
-        System.out.print("Results of Ex. " + experiment + ": ");
-        ResultTester.printResults(
+    private static void runOperation(int nr, Graph graph) throws IOException {
+        if(nr == 0) {
+            Operations.ex0(graph);
+        } else if(nr == 1) {
+            Operations.ex1(graph);
+        } else if(nr == 2) {
+            Operations.ex2(graph);
+        } else if(nr == 3) {
+            Operations.ex3(graph);
+        } else if(nr == 4) {
+            Operations.ex4(graph);
+        } else if(nr == 5) {
+            Operations.ex5(graph);
+        } else if(nr == 6) {
+            Operations.ex6(graph);
+        } else if(nr == 7) {
+            Operations.ex7(graph);
+        } else if(nr == 8) {
+            Operations.ex8(graph);
+        } else if(nr == 9) {
+            Operations.ex9(graph);
+        }
+    }
+
+    private static boolean compareWithTheirs(Integer experiment, boolean printDiff) {
+        boolean passed = ResultTester.printResults(
                 ResultTester.compare(
                         new File("assets/results/theirs/" + experiment + ".txt"),
                         new File("assets/results/ours/" + experiment + ".txt")
                 ), printDiff
         );
+        return passed;
     }
 }

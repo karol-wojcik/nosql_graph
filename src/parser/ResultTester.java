@@ -45,7 +45,7 @@ public class ResultTester {
         return DiffUtils.diff(our, theirs);
     }
 
-    public static void printResults(Patch patch, boolean printDiff) {
+    public static boolean printResults(Patch patch, boolean printDiff) {
         List<Delta> deltas = patch.getDeltas();
         System.out.println(deltas.size() + " differences");
         if(printDiff) {
@@ -53,6 +53,7 @@ public class ResultTester {
                 System.out.println(delta);
             }
         }
+        return deltas.size() == 0;
     }
 
     private static List<String> fileToLines(File file) {
