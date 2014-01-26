@@ -16,6 +16,17 @@ public class MemoryGraph extends SimpleGraph {
     public HashMap<Vertex, ArrayList<Label>> vertexLabels = new HashMap<Vertex, ArrayList<Label>>();
 
     @Override
+    public void buildGraph(List<Vertex> vertices, List<Edge> edges) {
+        for(Vertex v : vertices) {
+            addVertex(v);
+        }
+
+        for(Edge e : edges) {
+            addEdge(e);
+        }
+    }
+
+    @Override
     public void addVertex(Vertex vertex) {
         vertices.add(vertex);
     }

@@ -23,6 +23,27 @@ public class FoundationGraph extends SimpleGraph {
     }
 
     @Override
+    public void buildGraph(final List<Vertex> vertices, final List<Edge> edges) {
+        db.run(new Function<Transaction, Void>() {
+            public Void apply(final Transaction tr) {
+
+                for(Vertex item : vertices) {
+                    tr.set(Tuple.from("v",item.getSensor(), item.getId()).pack(), Tuple.from("").pack());
+                }
+
+                for(Edge item : edges) {
+                    tr.set(Tuple.from("e",
+                            item.getStart().getSensor(), item.getStart().getId(),
+                            item.getEnd().getSensor(), item.getEnd().getId()
+                    ).pack(), Tuple.from("").pack());
+                }
+
+                return null;
+            }
+        });
+    }
+
+    @Override
     public void addVertex(final Vertex vertex) {
         db.run(new Function<Transaction, Void>() {
             public Void apply(final Transaction tr) {

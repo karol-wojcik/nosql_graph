@@ -12,6 +12,7 @@ import parser.Vertex;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Created with IntelliJ IDEA.
@@ -24,21 +25,28 @@ public class FullDatasetTest {
 
         while(true) {
 
-    //            final Graph graph = new FoundationGraph();
-            final Graph graph = new CachedMemoryGraph();
+                final Graph graph = new FoundationGraph();
+//            final Graph graph = new CachedMemoryGraph();
+            final ArrayList<Vertex> vertices = new ArrayList<Vertex>();
+            final ArrayList<Edge> edges = new ArrayList<Edge>();
 
             GraphParser parser = new GraphParser();
-            parser.parse(new File("assets/100_gs_e.pl"), new GraphParser.Listener<Vertex>() {
+            parser.parse(new File("assets/100_gs_e.pl"),
+                    new GraphParser.Listener<Vertex>() {
                         @Override
                         public void onItem(Vertex item) {
-                            graph.addVertex(item);
+                            vertices.add(item);
                         }
                     }, new GraphParser.Listener<Edge>() {
                         @Override
                         public void onItem(Edge item) {
-                            graph.addEdge(item);
+                            edges.add(item);
                         }
                     });
+
+            graph.buildGraph(vertices, edges);
+
+
 
             long startTime;
             long results[] = new long[10];

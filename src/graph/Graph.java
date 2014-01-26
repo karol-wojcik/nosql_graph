@@ -8,6 +8,8 @@ import java.util.List;
 
 public interface Graph {
 
+    public void buildGraph(List<Vertex> vertices, List<Edge> edges);
+
     public void addVertex(Vertex vertex);
     public void addEdge(Edge edge);
 
