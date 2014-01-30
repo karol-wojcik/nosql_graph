@@ -24,6 +24,7 @@ public class FoundationGraph extends SimpleGraph {
 
     @Override
     public void buildGraph(final List<Vertex> vertices, final List<Edge> edges) {
+        clearDB();
         db.run(new Function<Transaction, Void>() {
             public Void apply(final Transaction tr) {
 
@@ -141,7 +142,7 @@ public class FoundationGraph extends SimpleGraph {
     public List<Vertex> getVertices() {
         Transaction tr = db.createTransaction();
         AsyncIterable<KeyValue> iter = tr.getRange(Range.startsWith(
-                Tuple.from("vertex").pack()
+                Tuple.from("v").pack()
         ));
         ArrayList<Vertex> list = new ArrayList<Vertex>();
         for(KeyValue kv : iter) {
@@ -163,7 +164,7 @@ public class FoundationGraph extends SimpleGraph {
     public List<Edge> getEdges() {
         Transaction tr = db.createTransaction();
         AsyncIterable<KeyValue> iter = tr.getRange(Range.startsWith(
-                Tuple.from("edge").pack()
+                Tuple.from("e").pack()
         ));
         ArrayList<Edge> list = new ArrayList<Edge>();
         for(KeyValue kv : iter) {
@@ -175,5 +176,25 @@ public class FoundationGraph extends SimpleGraph {
             ));
         }
         return list;
+    }
+
+    public void clearDB() {
+        db.run(new Function<Transaction, Void>() {
+            public Void apply(final Transaction tr) {
+                tr.clear(new Range(Tuple.from("").pack(), Tuple.from("xFF").pack()));
+                return null;
+            }
+        });
+    }
+
+    public void dumpDB() {
+        Transaction tr = db.createTransaction();
+        AsyncIterable<KeyValue> iter = tr.getRange(
+                new Range(Tuple.from("").pack(), Tuple.from("xFF").pack())
+        );
+        for(KeyValue kv : iter) {
+            Tuple tuple  = Tuple.fromBytes(kv.getKey());
+            System.out.println(tuple.toString());
+        }
     }
 }

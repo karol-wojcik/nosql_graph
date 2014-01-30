@@ -1,6 +1,7 @@
 package experiments;
 
 import graph.Graph;
+import graph.Label;
 import graph.Operations;
 import implementations.CachedMemoryGraph;
 import implementations.FoundationGraph;
@@ -23,7 +24,8 @@ import java.util.ArrayList;
 public class FullDatasetTest {
     public static void main(String[] args) throws IOException {
 
-        while(true) {
+
+//        while(true) {
 
                 final Graph graph = new FoundationGraph();
 //            final Graph graph = new CachedMemoryGraph();
@@ -31,7 +33,7 @@ public class FullDatasetTest {
             final ArrayList<Edge> edges = new ArrayList<Edge>();
 
             GraphParser parser = new GraphParser();
-            parser.parse(new File("assets/100_gs_e.pl"),
+            parser.parse(new File("assets/1_gs_e.pl"),
                     new GraphParser.Listener<Vertex>() {
                         @Override
                         public void onItem(Vertex item) {
@@ -45,7 +47,6 @@ public class FullDatasetTest {
                     });
 
             graph.buildGraph(vertices, edges);
-
 
 
             long startTime;
@@ -77,7 +78,7 @@ public class FullDatasetTest {
             System.out.println(" ");
             System.out.println("Sum: " + sum);
 
-        }
+//        }
     }
 
     private static void runOperation(int nr, Graph graph) throws IOException {
@@ -107,7 +108,7 @@ public class FullDatasetTest {
     private static boolean compareWithTheirs(Integer experiment, boolean printDiff) {
         boolean passed = ResultTester.printResults(
                 ResultTester.compare(
-                        new File("assets/results/theirs/" + experiment + ".txt"),
+                        new File("assets/results/self_gen_1/" + experiment + ".txt"),
                         new File("assets/results/ours/" + experiment + ".txt")
                 ), printDiff
         );

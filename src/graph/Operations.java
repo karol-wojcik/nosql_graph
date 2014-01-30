@@ -30,32 +30,41 @@ public class Operations {
         while(changes > 0) {
             changes = 0;
 
-            if(Rules.rule_1a1b(graph))
+            if(Rules.rule_1a1b(graph)){
                 changes++;
+            }
 
-            if(Rules.rule_2a2b(graph))
+            if(Rules.rule_2a2b(graph)){
                 changes++;
+            }
 
-            if(Rules.rule_3a3b(graph))
+            if(Rules.rule_3a3b(graph)){
                 changes++;
+            }
 
-            if(Rules.rule_4a(graph))
+            if(Rules.rule_4a(graph)){
                 changes++;
+            }
 
-            if(Rules.rule_4b(graph))
+            if(Rules.rule_4b(graph)){
                 changes++;
+            }
 
-            if(Rules.rule_5a(graph))
+            if(Rules.rule_5a(graph)){
                 changes++;
+            }
 
-            if(Rules.rule_5b(graph))
+            if(Rules.rule_5b(graph)){
                 changes++;
+            }
 
-            if(Rules.rule_6(graph))
+            if(Rules.rule_6(graph)){
                 changes++;
+            }
 
-            if(Rules.rule_7(graph))
+            if(Rules.rule_7(graph)){
                 changes++;
+            }
 
             System.out.println("Made " + changes + " changes this round");
         }
