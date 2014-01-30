@@ -27,13 +27,13 @@ public class FullDatasetTest {
 
 //        while(true) {
 
-                final Graph graph = new FoundationGraph();
-//            final Graph graph = new CachedMemoryGraph();
+//                final Graph graph = new FoundationGraph();
+            final Graph graph = new CachedMemoryGraph();
             final ArrayList<Vertex> vertices = new ArrayList<Vertex>();
             final ArrayList<Edge> edges = new ArrayList<Edge>();
 
             GraphParser parser = new GraphParser();
-            parser.parse(new File("assets/1_gs_e.pl"),
+            parser.parse(new File("assets/100_gs_e.pl"),
                     new GraphParser.Listener<Vertex>() {
                         @Override
                         public void onItem(Vertex item) {
@@ -108,7 +108,7 @@ public class FullDatasetTest {
     private static boolean compareWithTheirs(Integer experiment, boolean printDiff) {
         boolean passed = ResultTester.printResults(
                 ResultTester.compare(
-                        new File("assets/results/self_gen_1/" + experiment + ".txt"),
+                        new File("assets/results/theirs/" + experiment + ".txt"),
                         new File("assets/results/ours/" + experiment + ".txt")
                 ), printDiff
         );

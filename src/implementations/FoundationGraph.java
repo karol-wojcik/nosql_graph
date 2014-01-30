@@ -35,7 +35,7 @@ public class FoundationGraph extends SimpleGraph {
                 for(Edge item : edges) {
                     tr.set(Tuple.from("e",
                             item.getStart().getSensor(), item.getStart().getId(),
-                            item.getEnd().getSensor(), item.getEnd().getId()
+                            item.getEnd().getSensor(), item.getEnd().getId(), item.getFlag()
                     ).pack(), Tuple.from("").pack());
                 }
 
